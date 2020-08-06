@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.Collection;
 
 import dao.FilmeDAO;
+import entidades.Cliente;
 import entidades.Filme;
 
 public class FilmeDAOImpl implements FilmeDAO {
@@ -64,8 +65,21 @@ public class FilmeDAOImpl implements FilmeDAO {
 
 	@Override
 	public Filme find(Connection conn, Integer idFilme) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+        PreparedStatement myStmt = conn.prepareStatement("select * from en_filme where id_filme = ?");
+
+        myStmt.setInt(1, idFilme);
+
+        ResultSet myRs = myStmt.executeQuery();
+
+        if (!myRs.next()) {
+            return null;
+        }
+
+        java.sql.Date dataLancamento = myRs.getDate("data_lancamento");
+        String nome = myRs.getString("nome");
+        String descricao = myRs.getString("descricao");
+        
+        return new Filme(idFilme, dataLancamento, nome, descricao);
 	}
 
 	@Override

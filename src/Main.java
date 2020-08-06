@@ -25,14 +25,20 @@ public class Main {
             ClienteDAO clienteDAO = new ClienteDAOImpl();
             
             FilmeDAO filmeDAO = new FilmeDAOImpl();
-            Filme f1 = new Filme();
-            f1.setIdFilme(9);
-            f1.setDataLancamento(new Date());
-            f1.setDescricao("TESTE2");
-            f1.setNome("FILME TESTE2");
-            filmeDAO.edit(conn, f1);
-            filmeDAO.delete(conn, f1.getIdFilme());
-            System.out.println(f1.getNome() + " " + f1.getIdFilme());
+//            Filme f1 = new Filme();
+//            f1.setIdFilme(9);
+//            f1.setDataLancamento(new Date());
+//            f1.setDescricao("TESTE2");
+//            f1.setNome("FILME TESTE2");
+//            filmeDAO.edit(conn, f1);
+//            filmeDAO.delete(conn, f1.getIdFilme());
+           
+            Filme f1 = filmeDAO.find(conn, 1);
+
+	       	System.out.println(f1.getIdFilme());
+	        System.out.println(f1.getNome());
+	        System.out.println(f1.getDescricao());
+	        System.out.println(f1.getDataLancamento());
             
         } catch (Exception e) {
             e.printStackTrace();

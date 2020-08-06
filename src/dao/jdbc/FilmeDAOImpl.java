@@ -12,8 +12,20 @@ public class FilmeDAOImpl implements FilmeDAO {
 
 	@Override
 	public void insert(Connection conn, Filme filme) throws Exception {
-		// TODO Auto-generated method stub
-		
+        PreparedStatement myStmt = conn.prepareStatement("insert into en_filme (id_filme, data_lancamento, nome, descricao) values (?, ?, ?, ?)");
+
+        Integer idFilme = this.getNextId(conn);
+
+        myStmt.setInt(1, idFilme);
+        myStmt.setDate(2, new java.sql.Date(filme.getDataLancamento().getTime()));
+        myStmt.setString(3, filme.getNome());
+        myStmt.setString(4, filme.getDescricao());
+
+        myStmt.execute();
+        conn.commit();
+
+
+        filme.setIdFilme(idFilme);		
 	}
 
 	@Override

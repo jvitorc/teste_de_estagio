@@ -9,6 +9,7 @@ import entidades.Filme;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Date;
 
 
 public class Main {
@@ -24,9 +25,13 @@ public class Main {
             ClienteDAO clienteDAO = new ClienteDAOImpl();
             
             FilmeDAO filmeDAO = new FilmeDAOImpl();
+            Filme f1 = new Filme();
+            f1.setDataLancamento(new Date());
+            f1.setDescricao("TESTE");
+            f1.setNome("FILME TESTE");
+            filmeDAO.insert(conn, f1);
+            System.out.println(f1.getNome() + " " + f1.getIdFilme());
             
-            System.out.println("ID: " + filmeDAO.getNextId(conn));
-
         } catch (Exception e) {
             e.printStackTrace();
 

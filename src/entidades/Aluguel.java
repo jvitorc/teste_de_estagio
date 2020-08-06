@@ -21,7 +21,7 @@ public class Aluguel {
         this.valor = valor;
     }
 
-    public Integer getIdAluguel() {
+	public Integer getIdAluguel() {
         return idAluguel;
     }
 
@@ -65,4 +65,10 @@ public class Aluguel {
         this.valor = valor;
         return this;
     }
+
+    public String toString() {
+		return "Aluguel [idAluguel=" + idAluguel + ", filmes=" + filmes + ", cliente=" + cliente.getNome() + ", dataAluguel="
+				+ dataAluguel + ", valor=" + valor + "]";
+	}
+
 }

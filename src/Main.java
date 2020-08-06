@@ -52,7 +52,7 @@ public class Main {
             AluguelDAO aluguelDAO = new AluguelDAOImpl();
 
             for (Aluguel aluguel: aluguelDAO.list(conn)) {
-            	System.out.println(aluguel.getValor());
+            	System.out.println(aluguel.toString());
             }
             
         } catch (Exception e) {

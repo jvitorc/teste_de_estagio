@@ -3,10 +3,10 @@ package dao.jdbc;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import dao.FilmeDAO;
-import entidades.Cliente;
 import entidades.Filme;
 
 public class FilmeDAOImpl implements FilmeDAO {
@@ -84,8 +84,23 @@ public class FilmeDAOImpl implements FilmeDAO {
 
 	@Override
 	public Collection<Filme> list(Connection conn) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+
+        PreparedStatement myStmt = conn.prepareStatement("select * from en_filme order by nome");
+        ResultSet myRs = myStmt.executeQuery();
+
+        Collection<Filme> items = new ArrayList<>();
+
+        while (myRs.next()) {
+            Integer idFilme = myRs.getInt("id_filme");
+            java.sql.Date dataLancamento = myRs.getDate("data_lancamento");
+            String nome = myRs.getString("nome");
+            String descricao = myRs.getString("descricao");
+
+            
+            items.add(new Filme(idFilme, dataLancamento, nome, descricao));
+        }
+
+        return items;
 	}
 
 }

@@ -34,11 +34,19 @@ public class Main {
 //            filmeDAO.delete(conn, f1.getIdFilme());
            
             Filme f1 = filmeDAO.find(conn, 1);
-
+            
 	       	System.out.println(f1.getIdFilme());
 	        System.out.println(f1.getNome());
 	        System.out.println(f1.getDescricao());
 	        System.out.println(f1.getDataLancamento());
+	        
+	        for (Filme f: filmeDAO.list(conn)) {
+	        	System.out.println("//// ---------");
+	        	System.out.println(f.getIdFilme());
+		        System.out.println(f.getNome());
+		        System.out.println(f.getDescricao());
+		        System.out.println(f.getDataLancamento());	        	
+	        }
             
         } catch (Exception e) {
             e.printStackTrace();

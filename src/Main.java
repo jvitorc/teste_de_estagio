@@ -2,6 +2,10 @@ import dao.ClienteDAO;
 import dao.jdbc.ClienteDAOImpl;
 import entidades.Cliente;
 
+import dao.jdbc.FilmeDAOImpl;
+import dao.FilmeDAO;
+import entidades.Filme;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -13,11 +17,15 @@ public class Main {
         Connection conn = null;
         try {
             Class.forName("org.postgresql.Driver");
-            conn = DriverManager.getConnection("jdbc:postgresql://localhost/BANCO_DE_DADOS", "USUARIO", "SENHA");
+            conn = DriverManager.getConnection("jdbc:postgresql://localhost/teste", "postgres", "1234");
             conn.setAutoCommit(false);
 
             //Demonstrar o funcionamento aqui
             ClienteDAO clienteDAO = new ClienteDAOImpl();
+            
+            FilmeDAO filmeDAO = new FilmeDAOImpl();
+            
+            System.out.println("ID: " + filmeDAO.getNextId(conn));
 
         } catch (Exception e) {
             e.printStackTrace();

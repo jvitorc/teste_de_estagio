@@ -1,7 +1,21 @@
-Seu nome:
+Seu nome: João Vitor Cardoso
 
 1)
+SELECT *
+FROM public.en_filme f
+WHERE f.data_lancamento in (
+	SELECT min(f.data_lancamento) 
+	FROM public.en_filme f
+	)
+
 
 2)
+SELECT en_cliente.id_cliente, nome, count(en_aluguel.id_cliente) as alugueis
+FROM en_cliente LEFT JOIN en_aluguel ON
+en_cliente.id_cliente = en_aluguel.id_cliente
+GROUP BY en_cliente.id_cliente ORDER BY alugueis
 
 3)
+SELECT id_cliente, nome, sum(valor) as total_gasto, extract(year from data_aluguel) as ano, count(*) as alugueis
+FROM en_aluguel NATURAL JOIN en_cliente
+GROUP BY id_cliente, ano, nome ORDER BY total_gasto DESC

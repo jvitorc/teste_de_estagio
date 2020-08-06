@@ -26,10 +26,11 @@ public class Main {
             
             FilmeDAO filmeDAO = new FilmeDAOImpl();
             Filme f1 = new Filme();
+            f1.setIdFilme(9);
             f1.setDataLancamento(new Date());
-            f1.setDescricao("TESTE");
-            f1.setNome("FILME TESTE");
-            filmeDAO.insert(conn, f1);
+            f1.setDescricao("TESTE2");
+            f1.setNome("FILME TESTE2");
+            filmeDAO.edit(conn, f1);
             System.out.println(f1.getNome() + " " + f1.getIdFilme());
             
         } catch (Exception e) {

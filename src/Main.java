@@ -50,7 +50,10 @@ public class Main {
 //	        }
             
             AluguelDAO aluguelDAO = new AluguelDAOImpl();
-            System.out.println(aluguelDAO.getNextId(conn));
+
+            for (Aluguel aluguel: aluguelDAO.list(conn)) {
+            	System.out.println(aluguel.getValor());
+            }
             
         } catch (Exception e) {
             e.printStackTrace();

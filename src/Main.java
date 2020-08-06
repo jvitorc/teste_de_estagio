@@ -6,6 +6,10 @@ import dao.jdbc.FilmeDAOImpl;
 import dao.FilmeDAO;
 import entidades.Filme;
 
+import dao.jdbc.AluguelDAOImpl;
+import dao.AluguelDAO;
+import entidades.Aluguel;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -24,7 +28,7 @@ public class Main {
             //Demonstrar o funcionamento aqui
             ClienteDAO clienteDAO = new ClienteDAOImpl();
             
-            FilmeDAO filmeDAO = new FilmeDAOImpl();
+//            FilmeDAO filmeDAO = new FilmeDAOImpl();
 //            Filme f1 = new Filme();
 //            f1.setIdFilme(9);
 //            f1.setDataLancamento(new Date());
@@ -32,18 +36,21 @@ public class Main {
 //            f1.setNome("FILME TESTE2");
 //            filmeDAO.edit(conn, f1);
 //            filmeDAO.delete(conn, f1.getIdFilme());
-           
-            Filme f1 = filmeDAO.find(conn, 1);
+//           
+//            Filme f1 = filmeDAO.find(conn, 1);
+//            
+//	       	System.out.println(f1.getIdFilme());
+//	        System.out.println(f1.getNome());
+//	        System.out.println(f1.getDescricao());
+//	        System.out.println(f1.getDataLancamento());
+//	        
+//	        for (Filme f: filmeDAO.list(conn)) {
+//	        	System.out.println("//// ---------");
+//	        	System.out.println(f.toString());
+//	        }
             
-	       	System.out.println(f1.getIdFilme());
-	        System.out.println(f1.getNome());
-	        System.out.println(f1.getDescricao());
-	        System.out.println(f1.getDataLancamento());
-	        
-	        for (Filme f: filmeDAO.list(conn)) {
-	        	System.out.println("//// ---------");
-	        	System.out.println(f.toString());
-	        }
+            AluguelDAO aluguelDAO = new AluguelDAOImpl();
+            System.out.println(aluguelDAO.getNextId(conn));
             
         } catch (Exception e) {
             e.printStackTrace();

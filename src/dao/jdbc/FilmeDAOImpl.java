@@ -52,7 +52,13 @@ public class FilmeDAOImpl implements FilmeDAO {
 
 	@Override
 	public void delete(Connection conn, Integer idFilme) throws Exception {
-		// TODO Auto-generated method stub
+
+        PreparedStatement myStmt = conn.prepareStatement("delete from en_filme where id_filme = ?");
+
+        myStmt.setInt(1, idFilme);
+
+        myStmt.execute();
+        conn.commit();
 		
 	}
 

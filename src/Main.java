@@ -31,6 +31,7 @@ public class Main {
             f1.setDescricao("TESTE2");
             f1.setNome("FILME TESTE2");
             filmeDAO.edit(conn, f1);
+            filmeDAO.delete(conn, f1.getIdFilme());
             System.out.println(f1.getNome() + " " + f1.getIdFilme());
             
         } catch (Exception e) {

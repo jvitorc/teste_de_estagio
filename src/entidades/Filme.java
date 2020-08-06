@@ -32,7 +32,7 @@ public class Filme {
         return dataLancamento;
     }
 
-    public Filme setDataLancamento(Date dataLancamento) {
+	public Filme setDataLancamento(Date dataLancamento) {
         this.dataLancamento = dataLancamento;
         return this;
     }
@@ -54,4 +54,10 @@ public class Filme {
         this.descricao = descricao;
         return this;
     }
+    
+	public String toString() {
+		return "Filme [idFilme=" + idFilme + ", dataLancamento=" + dataLancamento + ", nome=" + nome + ", descricao="
+				+ descricao + "]";
+	}
+
 }

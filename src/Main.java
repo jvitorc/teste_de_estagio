@@ -42,10 +42,7 @@ public class Main {
 	        
 	        for (Filme f: filmeDAO.list(conn)) {
 	        	System.out.println("//// ---------");
-	        	System.out.println(f.getIdFilme());
-		        System.out.println(f.getNome());
-		        System.out.println(f.getDescricao());
-		        System.out.println(f.getDataLancamento());	        	
+	        	System.out.println(f.toString());
 	        }
             
         } catch (Exception e) {

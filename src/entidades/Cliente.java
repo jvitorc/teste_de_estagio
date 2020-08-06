@@ -2,7 +2,7 @@ package entidades;
 
 public class Cliente {
 
-    private Integer idCliente;
+	private Integer idCliente;
     private String nome;
 
     public Cliente() {
@@ -34,5 +34,10 @@ public class Cliente {
         this.nome = nome;
         return this;
     }
+    
+	public String toString() {
+		return "Cliente [idCliente=" + idCliente + ", nome=" + nome + "]";
+	}
+
 
 }

@@ -68,7 +68,7 @@ public class AluguelDAOImpl implements AluguelDAO {
 
 	@Override
 	public void delete(Connection conn, Aluguel aluguel) throws Exception {
-		delete_aluguel_filmes(conn, aluguel.getIdAluguel());
+		deleteAluguelFilmes(conn, aluguel.getIdAluguel());
 		
 		PreparedStatement myStmt = conn.prepareStatement("delete from en_aluguel where id_aluguel = ?");
 
@@ -79,7 +79,7 @@ public class AluguelDAOImpl implements AluguelDAO {
 		
 	}
 	
-	public void delete_aluguel_filmes(Connection conn, Integer idAluguel) throws Exception {
+	public void deleteAluguelFilmes(Connection conn, Integer idAluguel) throws Exception {
 		PreparedStatement myStmt = conn.prepareStatement("delete from re_aluguel_filme where id_aluguel = ?");
 
         myStmt.setInt(1, idAluguel);

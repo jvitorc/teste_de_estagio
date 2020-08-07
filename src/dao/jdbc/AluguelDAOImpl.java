@@ -21,8 +21,19 @@ public class AluguelDAOImpl implements AluguelDAO {
 
 	@Override
 	public void insert(Connection conn, Aluguel aluguel) throws Exception {
-		// TODO Auto-generated method stub
+        PreparedStatement myStmt = conn.prepareStatement("insert into en_aluguel (id_aluguel, id_cliente, data_aluguel, valor) values (?, ?, ?, ?)");
 
+        Integer idAluguel = this.getNextId(conn);
+
+        myStmt.setInt(1, aluguel.getIdAluguel());
+        myStmt.setInt(2, aluguel.getCliente().getIdCliente());
+        myStmt.setDate(3, new java.sql.Date(aluguel.getDataAluguel().getTime()));
+        myStmt.setFloat(4, aluguel.getValor());
+
+        myStmt.execute();
+        conn.commit();
+
+        aluguel.setIdAluguel(idAluguel);		
 	}
 
 	@Override

@@ -13,7 +13,9 @@ import entidades.Aluguel;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 public class Main {
@@ -29,36 +31,10 @@ public class Main {
             ClienteDAO clienteDAO = new ClienteDAOImpl();
             
             AluguelDAO aluguelDAO = new AluguelDAOImpl();
-
-//            for (Aluguel aluguel: aluguelDAO.list(conn)) {
-//            	System.out.println(aluguel.toString());
-//            }
-//            AluguelDAOImpl aluguelDAO = new AluguelDAOImpl();
-//            for (Filme filme: aluguelDAO.getFilmes(conn, 3)) {
-//            	System.out.println(filme);
-//            }
-            
-//            System.out.println(aluguelDAO.find(conn, 3));
-//            aluguelDAO.delete(conn, aluguelDAO.find(conn, 3));
-//            System.out.println(aluguelDAO.find(conn, 3));
-
-//            Aluguel aluguel = new Aluguel(0, null, clienteDAO.find(conn, 1), new Date(), 100);
-//            aluguelDAO.insert(conn, aluguel);
-//            System.out.println(aluguel);
-//
-//            
-//            AluguelDAOImpl aluguelDAOImpl = new AluguelDAOImpl();
-//            aluguelDAOImpl.insertFilme(conn, 11, filmeDAO.find(conn, 1));            
-
-//            
-//            Aluguel aluguel = aluguelDAO.find(conn, 1);
-//            System.out.println(aluguel);
-//            aluguel.setValor(30);
-//            aluguelDAO.edit(conn, aluguel);
-//            aluguel = aluguelDAO.find(conn, 1);            
-//            System.out.println(aluguel);
             
             testeFilme(conn);
+            testeAluguel(conn);
+
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -94,11 +70,12 @@ public class Main {
     	testeFilme = filmeDAO.find(conn, filme.getIdFilme());
     	System.out.println(filme.getNome().equals(testeFilme.getNome()));
     	
-    	// Listar filme
+    	// Listar filmes
     	boolean filmeEncontrado = false;
     	for (Filme f: filmeDAO.list(conn)) {
     		if (f.getIdFilme() == filme.getIdFilme()) {
     			filmeEncontrado = true;
+    			break;
     		}
     	}
     	System.out.println(filmeEncontrado);
@@ -109,5 +86,80 @@ public class Main {
     	System.out.println(testeFilme == null);
     	
    }
+    
+
+    public static void testeAluguel(Connection conn) throws Exception {
+    	FilmeDAO filmeDAO = new FilmeDAOImpl();
+    	ClienteDAO clienteDAO = new ClienteDAOImpl();
+    	AluguelDAO aluguelDAO = new AluguelDAOImpl();
+    	
+    	// Criacao do filme TESTE
+    	Filme filme = new Filme();
+    	filme.setDataLancamento(new Date());
+    	filme.setDescricao("TESTE");
+    	filme.setNome("FILME TESTE");
+    	
+    	// Criacao do cliente TESTE
+    	Cliente cliente = new Cliente("TESTE");
+    	clienteDAO.insert(conn, cliente);
+    	
+    	// Inserir cliente
+    	clienteDAO.insert(conn, cliente);
+    	// Inserir filme
+    	filmeDAO.insert(conn, filme);
+
+    	// Lista Filme
+    	List<Filme> filmes = new ArrayList<>();
+    	filmes.add(filme);
+
+    	
+    	// Criacao aluguel TESTE
+    	Aluguel aluguel = new Aluguel();
+    	aluguel.setCliente(cliente);
+    	aluguel.setDataAluguel(new Date());
+    	aluguel.setFilmes(filmes);
+    	aluguel.setValor(45);
+    	
+    	// Inserir aluguel
+    	aluguelDAO.insert(conn, aluguel);
+    	
+    	// Procurar aluguel
+    	Aluguel aluguelTeste = aluguelDAO.find(conn, aluguel.getIdAluguel());
+    	System.out.println(aluguel.getCliente().getIdCliente() == aluguelTeste.getCliente().getIdCliente());
+    	
+    	// Editar - propriedade valor
+    	aluguel.setValor(100);
+    	aluguelDAO.edit(conn, aluguel);
+    	aluguelTeste = aluguelDAO.find(conn, aluguel.getIdAluguel());
+    	System.out.println(aluguelTeste.getValor() == 100);
+    	
+    	// Editar - mudar lista de filmes - 0
+    	filmes.clear();
+    	aluguelDAO.edit(conn, aluguel);
+    	aluguelTeste = aluguelDAO.find(conn, aluguel.getIdAluguel());
+    	System.out.println(aluguelTeste.getFilmes().size() == 0);
+
+    	// Editar - mudar lista de filmes - 1    	
+    	filmes.add(filme);
+    	aluguelDAO.edit(conn, aluguel);
+    	aluguelTeste = aluguelDAO.find(conn, aluguel.getIdAluguel());
+    	System.out.println(aluguelTeste.getFilmes().size() == 1);
+    	
+
+    	// Listar alugueis
+    	boolean aluguelEncontrado = false;
+    	for (Aluguel a: aluguelDAO.list(conn)) {
+    		if (a.getIdAluguel() == aluguel.getIdAluguel()) {
+    			aluguelEncontrado = true;
+    			break;
+    		}
+    	}
+    	System.out.println(aluguelEncontrado);
+
+    	// Excluir aluguel
+    	aluguelDAO.delete(conn, aluguel);
+    	aluguelTeste = aluguelDAO.find(conn, aluguel.getIdAluguel());
+    	System.out.println(aluguelTeste == null);
+    }
     
 }

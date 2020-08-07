@@ -2,10 +2,10 @@ Seu nome: João Vitor Cardoso
 
 1)
 SELECT *
-FROM public.en_filme f
+FROM en_filme f
 WHERE f.data_lancamento in (
 	SELECT min(f.data_lancamento) 
-	FROM public.en_filme f
+	FROM en_filme f
 	)
 
 

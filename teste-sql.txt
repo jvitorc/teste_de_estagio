@@ -1,4 +1,4 @@
-Seu nome: Jo√£o Vitor Cardoso
+Seu nome: Jo„o Vitor Cardoso
 
 1)
 SELECT *

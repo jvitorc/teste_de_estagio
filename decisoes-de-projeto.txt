@@ -1,0 +1,9 @@
+Em AluguelDAOImpl criei funções separadas para modificar a tabela re_aluguel_filme sendo: 
+	deleteReAluguelFilme;
+	insertReAluguelFilme;
+	getAluguelFilmes. 
+As funções foram separadas porque fica mais facil testar e encontrar erros.
+
+Ao excluir o filme na tabela en_filme, exclui também os relacionamento da tabela re_aluguel_filme.
+Ficou estranho pois alguns alugueis podem ficar sem filmes, mas resolvir deixar assim mesmo.
+

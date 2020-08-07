@@ -28,7 +28,7 @@ public class Main {
             //Demonstrar o funcionamento aqui
             ClienteDAO clienteDAO = new ClienteDAOImpl();
             
-//            FilmeDAO filmeDAO = new FilmeDAOImpl();
+            FilmeDAO filmeDAO = new FilmeDAOImpl();
 //            Filme f1 = new Filme();
 //            f1.setIdFilme(9);
 //            f1.setDataLancamento(new Date());
@@ -66,6 +66,10 @@ public class Main {
             Aluguel aluguel = new Aluguel(0, null, clienteDAO.find(conn, 1), new Date(), 100);
             aluguelDAO.insert(conn, aluguel);
             System.out.println(aluguel);
+
+            
+            AluguelDAOImpl aluguelDAOImpl = new AluguelDAOImpl();
+            aluguelDAOImpl.insertFilme(conn, 11, filmeDAO.find(conn, 1));            
             
         } catch (Exception e) {
             e.printStackTrace();

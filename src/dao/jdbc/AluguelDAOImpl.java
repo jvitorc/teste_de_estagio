@@ -25,7 +25,7 @@ public class AluguelDAOImpl implements AluguelDAO {
 
         Integer idAluguel = this.getNextId(conn);
 
-        myStmt.setInt(1, aluguel.getIdAluguel());
+        myStmt.setInt(1, idAluguel);
         myStmt.setInt(2, aluguel.getCliente().getIdCliente());
         myStmt.setDate(3, new java.sql.Date(aluguel.getDataAluguel().getTime()));
         myStmt.setFloat(4, aluguel.getValor());
@@ -34,8 +34,24 @@ public class AluguelDAOImpl implements AluguelDAO {
         conn.commit();
 
         aluguel.setIdAluguel(idAluguel);		
+        
+        for (Filme filme: aluguel.getFilmes()) {
+        	this.insertFilme(conn, idAluguel, filme);
+        }
 	}
 
+	public void insertFilme(Connection conn, Integer idAluguel, Filme filme) throws Exception {
+		PreparedStatement myStmt = conn.prepareStatement("insert into re_aluguel_filme (id_aluguel, id_filme) values (?, ?)");
+		
+		Integer idFilme = filme.getIdFilme();
+
+		myStmt.setInt(1, idAluguel);
+		myStmt.setInt(2, idFilme);
+		
+		myStmt.execute();
+		conn.commit();
+	}
+	
 	@Override
 	public Integer getNextId(Connection conn) throws Exception {
         PreparedStatement myStmt = conn.prepareStatement("select nextval('seq_en_aluguel')");

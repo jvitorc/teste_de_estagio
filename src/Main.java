@@ -63,13 +63,21 @@ public class Main {
 //            aluguelDAO.delete(conn, aluguelDAO.find(conn, 3));
 //            System.out.println(aluguelDAO.find(conn, 3));
 
-            Aluguel aluguel = new Aluguel(0, null, clienteDAO.find(conn, 1), new Date(), 100);
-            aluguelDAO.insert(conn, aluguel);
-            System.out.println(aluguel);
+//            Aluguel aluguel = new Aluguel(0, null, clienteDAO.find(conn, 1), new Date(), 100);
+//            aluguelDAO.insert(conn, aluguel);
+//            System.out.println(aluguel);
+//
+//            
+//            AluguelDAOImpl aluguelDAOImpl = new AluguelDAOImpl();
+//            aluguelDAOImpl.insertFilme(conn, 11, filmeDAO.find(conn, 1));            
 
             
-            AluguelDAOImpl aluguelDAOImpl = new AluguelDAOImpl();
-            aluguelDAOImpl.insertFilme(conn, 11, filmeDAO.find(conn, 1));            
+            Aluguel aluguel = aluguelDAO.find(conn, 1);
+            System.out.println(aluguel);
+            aluguel.setValor(30);
+            aluguelDAO.edit(conn, aluguel);
+            aluguel = aluguelDAO.find(conn, 1);            
+            System.out.println(aluguel);
             
         } catch (Exception e) {
             e.printStackTrace();

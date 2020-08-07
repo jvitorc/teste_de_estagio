@@ -62,8 +62,23 @@ public class AluguelDAOImpl implements AluguelDAO {
 
 	@Override
 	public void edit(Connection conn, Aluguel aluguel) throws Exception {
-		// TODO Auto-generated method stub
-		
+        PreparedStatement myStmt = conn.prepareStatement("update en_aluguel set id_cliente = (?), data_aluguel = (?), valor = (?)  where id_aluguel = (?)");
+
+        Integer idAluguel = aluguel.getIdAluguel();
+
+        myStmt.setInt(1, aluguel.getCliente().getIdCliente());
+        myStmt.setDate(2, new java.sql.Date(aluguel.getDataAluguel().getTime()));
+        myStmt.setFloat(3, aluguel.getValor());
+        myStmt.setInt(4, idAluguel);
+
+        myStmt.execute();
+        conn.commit();
+
+        this.deleteAluguelFilmes(conn, idAluguel);
+        
+        for (Filme filme: aluguel.getFilmes()) {
+        	this.insertFilme(conn, idAluguel, filme);
+        }        
 	}
 
 	@Override

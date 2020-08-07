@@ -51,13 +51,15 @@ public class Main {
             
             AluguelDAO aluguelDAO = new AluguelDAOImpl();
 
-            for (Aluguel aluguel: aluguelDAO.list(conn)) {
-            	System.out.println(aluguel.toString());
-            }
+//            for (Aluguel aluguel: aluguelDAO.list(conn)) {
+//            	System.out.println(aluguel.toString());
+//            }
 //            AluguelDAOImpl aluguelDAO = new AluguelDAOImpl();
 //            for (Filme filme: aluguelDAO.getFilmes(conn, 3)) {
 //            	System.out.println(filme);
 //            }
+            
+            System.out.println(aluguelDAO.find(conn, 3));
             
         } catch (Exception e) {
             e.printStackTrace();

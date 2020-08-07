@@ -47,8 +47,24 @@ public class AluguelDAOImpl implements AluguelDAO {
 
 	@Override
 	public Aluguel find(Connection conn, Integer idAluguel) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+        PreparedStatement myStmt = conn.prepareStatement("select * from en_aluguel where id_aluguel = ?");
+
+        myStmt.setInt(1, idAluguel);
+
+        ResultSet myRs = myStmt.executeQuery();
+
+        if (!myRs.next()) {
+            return null;
+        }
+
+        ClienteDAO clienteDAO = new ClienteDAOImpl();
+
+        Integer idCliente = myRs.getInt("id_cliente");
+        Cliente cliente = clienteDAO.find(conn, idCliente);
+        java.sql.Date dataAluguel = myRs.getDate("data_aluguel");
+        float valor = myRs.getFloat("valor"); 
+        List<Filme> filmes = getFilmes(conn, idAluguel);
+        return new Aluguel(idAluguel, filmes, cliente, dataAluguel, valor);
 	}
 
 	@Override

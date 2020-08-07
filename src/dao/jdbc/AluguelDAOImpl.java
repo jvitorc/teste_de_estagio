@@ -31,16 +31,16 @@ public class AluguelDAOImpl implements AluguelDAO {
         myStmt.setFloat(4, aluguel.getValor());
 
         myStmt.execute();
-        conn.commit();
 
         aluguel.setIdAluguel(idAluguel);		
         
         for (Filme filme: aluguel.getFilmes()) {
         	this.insertFilme(conn, idAluguel, filme);
         }
+        conn.commit();	
 	}
 
-	public void insertFilme(Connection conn, Integer idAluguel, Filme filme) throws Exception {
+	private void insertFilme(Connection conn, Integer idAluguel, Filme filme) throws Exception {
 		PreparedStatement myStmt = conn.prepareStatement("insert into re_aluguel_filme (id_aluguel, id_filme) values (?, ?)");
 		
 		Integer idFilme = filme.getIdFilme();
@@ -49,7 +49,6 @@ public class AluguelDAOImpl implements AluguelDAO {
 		myStmt.setInt(2, idFilme);
 		
 		myStmt.execute();
-		conn.commit();
 	}
 	
 	@Override
@@ -94,14 +93,11 @@ public class AluguelDAOImpl implements AluguelDAO {
 		
 	}
 	
-	public void deleteAluguelFilmes(Connection conn, Integer idAluguel) throws Exception {
+	private void deleteAluguelFilmes(Connection conn, Integer idAluguel) throws Exception {
 		PreparedStatement myStmt = conn.prepareStatement("delete from re_aluguel_filme where id_aluguel = ?");
 
         myStmt.setInt(1, idAluguel);
-
-        myStmt.execute();
-        conn.commit();
-		
+        myStmt.execute();		
 	}
 
 	@Override
@@ -122,7 +118,8 @@ public class AluguelDAOImpl implements AluguelDAO {
         Cliente cliente = clienteDAO.find(conn, idCliente);
         java.sql.Date dataAluguel = myRs.getDate("data_aluguel");
         float valor = myRs.getFloat("valor"); 
-        List<Filme> filmes = getFilmes(conn, idAluguel);
+        List<Filme> filmes = getAluguelFilmes(conn, idAluguel);
+
         return new Aluguel(idAluguel, filmes, cliente, dataAluguel, valor);
 	}
 
@@ -142,14 +139,14 @@ public class AluguelDAOImpl implements AluguelDAO {
             Cliente cliente = clienteDAO.find(conn, idCliente);
             java.sql.Date dataAluguel = myRs.getDate("data_aluguel");
             float valor = myRs.getFloat("valor"); 
-            List<Filme> filmes = getFilmes(conn, idAluguel);
+            List<Filme> filmes = getAluguelFilmes(conn, idAluguel);
             items.add(new Aluguel(idAluguel, filmes, cliente, dataAluguel, valor));
         }
 
         return items;
 	}
 	
-	private List<Filme> getFilmes(Connection conn, Integer idAluguel)  throws Exception {
+	private List<Filme> getAluguelFilmes(Connection conn, Integer idAluguel)  throws Exception {
 
 		PreparedStatement myStmt = conn.prepareStatement("select * from re_aluguel_filme where id_aluguel = ?");
 		myStmt.setInt(1, idAluguel);

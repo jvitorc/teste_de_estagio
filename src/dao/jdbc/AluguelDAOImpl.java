@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import dao.jdbc.ClienteDAOImpl;
 import dao.jdbc.FilmeDAOImpl;
@@ -66,21 +67,21 @@ public class AluguelDAOImpl implements AluguelDAO {
             Cliente cliente = clienteDAO.find(conn, idCliente);
             java.sql.Date dataAluguel = myRs.getDate("data_aluguel");
             float valor = myRs.getFloat("valor"); 
-           
-            items.add(new Aluguel(idAluguel, null, cliente, dataAluguel, valor));
+            List<Filme> filmes = getFilmes(conn, idAluguel);
+            items.add(new Aluguel(idAluguel, filmes, cliente, dataAluguel, valor));
         }
 
         return items;
 	}
 	
-	public Collection<Filme> getFilmes(Connection conn, Integer idAluguel)  throws Exception {
+	private List<Filme> getFilmes(Connection conn, Integer idAluguel)  throws Exception {
 
 		PreparedStatement myStmt = conn.prepareStatement("select * from re_aluguel_filme where id_aluguel = ?");
 		myStmt.setInt(1, idAluguel);
 
 		ResultSet myRs = myStmt.executeQuery();
 
-        Collection<Filme> items = new ArrayList<>();
+        List<Filme> items = new ArrayList<>();
 
         FilmeDAO filmeDAO = new FilmeDAOImpl();
         

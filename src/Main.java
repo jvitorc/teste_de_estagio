@@ -91,6 +91,40 @@ public class Main {
         }
         System.out.println("Fim do teste.");
     }
-    
+
+    public void testeFilme(Connection conn) throws Exception {
+    	FilmeDAO filmeDAO = new FilmeDAOImpl();
+    	
+    	// Criacao do filme TESTE
+    	Filme filme = new Filme();
+    	filme.setDataLancamento(new Date());
+    	filme.setDescricao("TESTE");
+    	filme.setNome("FILME TESTE");
+    	
+
+    	// Inserir filme
+    	filmeDAO.insert(conn, filme);
+    	
+    	// Procurar filme
+    	Filme testeFilme = filmeDAO.find(conn, filme.getIdFilme());
+
+    	System.out.println("TESTE");
+    	System.out.println(filme.toString() == testeFilme.toString());
+    	
+//    	filmeDAO.edit(conn, f1);
+//    	filmeDAO.delete(conn, f1.getIdFilme());
+//     
+//    	Filme f1 = filmeDAO.find(conn, 1);
+//      
+//     	System.out.println(f1.getIdFilme());
+//     	System.out.println(f1.getNome());
+//     	System.out.println(f1.getDescricao());
+//     	System.out.println(f1.getDataLancamento());
+//      
+//     	for (Filme f: filmeDAO.list(conn)) {
+//     		System.out.println("//// ---------");
+//     		System.out.println(f.toString());
+//     	}
+    }
     
 }

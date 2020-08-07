@@ -35,12 +35,12 @@ public class AluguelDAOImpl implements AluguelDAO {
         aluguel.setIdAluguel(idAluguel);		
         
         for (Filme filme: aluguel.getFilmes()) {
-        	this.insertFilme(conn, idAluguel, filme);
+        	this.insertReAluguelFilme(conn, idAluguel, filme);
         }
         conn.commit();	
 	}
 
-	private void insertFilme(Connection conn, Integer idAluguel, Filme filme) throws Exception {
+	private void insertReAluguelFilme(Connection conn, Integer idAluguel, Filme filme) throws Exception {
 		PreparedStatement myStmt = conn.prepareStatement("insert into re_aluguel_filme (id_aluguel, id_filme) values (?, ?)");
 		
 		Integer idFilme = filme.getIdFilme();
@@ -71,18 +71,19 @@ public class AluguelDAOImpl implements AluguelDAO {
         myStmt.setInt(4, idAluguel);
 
         myStmt.execute();
-        conn.commit();
 
-        this.deleteAluguelFilmes(conn, idAluguel);
+        this.deleteReAluguelFilme(conn, idAluguel);
         
         for (Filme filme: aluguel.getFilmes()) {
-        	this.insertFilme(conn, idAluguel, filme);
+        	this.insertReAluguelFilme(conn, idAluguel, filme);
         }        
+        conn.commit();
+
 	}
 
 	@Override
 	public void delete(Connection conn, Aluguel aluguel) throws Exception {
-		deleteAluguelFilmes(conn, aluguel.getIdAluguel());
+		deleteReAluguelFilme(conn, aluguel.getIdAluguel());
 		
 		PreparedStatement myStmt = conn.prepareStatement("delete from en_aluguel where id_aluguel = ?");
 
@@ -93,7 +94,7 @@ public class AluguelDAOImpl implements AluguelDAO {
 		
 	}
 	
-	private void deleteAluguelFilmes(Connection conn, Integer idAluguel) throws Exception {
+	private void deleteReAluguelFilme(Connection conn, Integer idAluguel) throws Exception {
 		PreparedStatement myStmt = conn.prepareStatement("delete from re_aluguel_filme where id_aluguel = ?");
 
         myStmt.setInt(1, idAluguel);

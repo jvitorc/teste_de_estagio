@@ -144,8 +144,12 @@ public class Main {
     	aluguelDAO.edit(conn, aluguel);
     	aluguelTeste = aluguelDAO.find(conn, aluguel.getIdAluguel());
     	System.out.println(aluguelTeste.getFilmes().size() == 1);
-    	
 
+    	// Excluir filme (Alterar quantidade de filmes alugado - 0)
+    	filmeDAO.delete(conn, filme.getIdFilme());
+    	aluguelTeste = aluguelDAO.find(conn, aluguel.getIdAluguel());
+    	System.out.println(aluguelTeste.getFilmes().size() == 0);
+    	
     	// Listar alugueis
     	boolean aluguelEncontrado = false;
     	for (Aluguel a: aluguelDAO.list(conn)) {
@@ -155,11 +159,12 @@ public class Main {
     		}
     	}
     	System.out.println(aluguelEncontrado);
-
+    	    	
     	// Excluir aluguel
     	aluguelDAO.delete(conn, aluguel);
     	aluguelTeste = aluguelDAO.find(conn, aluguel.getIdAluguel());
     	System.out.println(aluguelTeste == null);
+    	    	
     }
     
 }

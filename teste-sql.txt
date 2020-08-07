@@ -16,6 +16,6 @@ en_cliente.id_cliente = en_aluguel.id_cliente
 GROUP BY en_cliente.id_cliente ORDER BY alugueis
 
 3)
-SELECT id_cliente, nome, sum(valor) as total_gasto, extract(year from data_aluguel) as ano, count(*) as alugueis
+SELECT id_cliente, nome, count(*) as alugueis, sum(valor) as total_gasto, extract(year from data_aluguel) as ano
 FROM en_aluguel NATURAL JOIN en_cliente
 GROUP BY id_cliente, ano, nome ORDER BY total_gasto DESC

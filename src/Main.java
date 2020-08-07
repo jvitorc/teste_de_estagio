@@ -60,6 +60,8 @@ public class Main {
 //            }
             
             System.out.println(aluguelDAO.find(conn, 3));
+            aluguelDAO.delete(conn, aluguelDAO.find(conn, 3));
+            System.out.println(aluguelDAO.find(conn, 3));
             
         } catch (Exception e) {
             e.printStackTrace();
